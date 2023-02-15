@@ -22,4 +22,28 @@ func main(){
 		os.Exit(1)
 	}
 
+	now := time.Now()
+	w := when.New(nil)
+	w.Add(en.All...)
+	w.Add(common.All...)
+	
+	t, err := w.Parse(os.Args[1], now)
+
+	if err != nil {
+		fmt.Printf(err)
+		os.Exit(2)
+	}
+
+	if t==nil {
+	fmt.Println("Unablr to parse time!")
+	os.Exit(2)
+	}
+	if now.After(t.Time){
+		fmt.Println("set a future time!")
+		os.Exit(3)
+	}
+
+	diff := t.Time.Sub(now)
+
+
 }
