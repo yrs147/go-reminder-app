@@ -45,5 +45,24 @@ func main(){
 
 	diff := t.Time.Sub(now)
 
+	if os.Getenv(markName) == markValue{
+		time.Sleep(diff)
+		beeep.Alert("Reminder", strings.Join(os.Args[2:],""),"assets/information.png")
+
+		if err != nil {
+			fmt.println(err)
+			os.Exit(4)
+		} 		
+	} else {
+		cmd := exec.Command(os.Args[0], os.Args[1:]...)
+		cmd.Env =  append(os.Environ(), fmt.Sprintf("%s=%s", markName , markValue))
+		if err := cmd.Start(); err!=nil {
+			fmt.Println(err)
+			os.Exit(5)
+		}
+		fmt.Println("Reminder will be displayed after",diff.round(time.Second))		
+		os.Exit(0)
+
+	}
 
 }
