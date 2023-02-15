@@ -1,14 +1,15 @@
 package main
 
-import(
+import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 	"github.com/gen2brain/beeep"
-	"github.com/oblebedev/when"
-	"github.com/oblebedev/when/rules/common"
-	"github.com/oblebedev/when/rules/en"
+	"github.com/olebedev/when"
+	"github.com/olebedev/when/rules/common"
+	"github.com/olebedev/when/rules/en"
 )
 
 const(
@@ -30,7 +31,7 @@ func main(){
 	t, err := w.Parse(os.Args[1], now)
 
 	if err != nil {
-		fmt.Printf(err)
+		fmt.Println(err)
 		os.Exit(2)
 	}
 
@@ -50,7 +51,7 @@ func main(){
 		beeep.Alert("Reminder", strings.Join(os.Args[2:],""),"assets/information.png")
 
 		if err != nil {
-			fmt.println(err)
+			fmt.Println(err)
 			os.Exit(4)
 		} 		
 	} else {
@@ -60,7 +61,7 @@ func main(){
 			fmt.Println(err)
 			os.Exit(5)
 		}
-		fmt.Println("Reminder will be displayed after",diff.round(time.Second))		
+		fmt.Println("Reminder will be displayed after",diff.Round(time.Second))		
 		os.Exit(0)
 
 	}
